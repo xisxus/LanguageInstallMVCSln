@@ -18,6 +18,7 @@ namespace LanguageInstall.Service.Service
     public class TranslationService : ITranslationService
     {
         private readonly HttpClient _httpClient;
+        
 
         public TranslationService(HttpClient httpClient)
         {
@@ -74,10 +75,11 @@ namespace LanguageInstall.Service.Service
 
                     // Locate the input box and enter the text
                     var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
+                    sourceTextBox.Clear();
                     sourceTextBox.SendKeys(text);
 
                     // Wait for the translation to complete
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
 
                     //// Retrieve the translated text
                     //var outputBox = driver.FindElement(By.XPath("//div[@class='J0lOec']"));
@@ -85,6 +87,7 @@ namespace LanguageInstall.Service.Service
 
                     // Wait for translation with WebDriverWait instead of Thread.Sleep
                     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                    Thread.Sleep(3000);
                     var translationContainer = wait.Until(d => d.FindElement(By.ClassName("ryNqvb")));
                     result = translationContainer.Text;
                 }
@@ -114,6 +117,7 @@ namespace LanguageInstall.Service.Service
                 // Navigate to LibreTranslate website
                 driver.Navigate().GoToUrl("https://libretranslate.com");
 
+                Thread.Sleep(2000);
                 // Create wait object
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
@@ -122,22 +126,23 @@ namespace LanguageInstall.Service.Service
                 sourceTextarea.Clear();
                 sourceTextarea.SendKeys(inputText);
 
+                Thread.Sleep(2000);
                 // Wait for and find the target language dropdown (second dropdown for target language)
                 var targetLangDropdown = wait.Until(ExpectedConditions.ElementToBeClickable(
                     By.XPath("(//select[@class='browser-default'])[2]")));
 
                 // Click to open the dropdown
                 targetLangDropdown.Click();
-
+                Thread.Sleep(2000);
                 // Select Bengali ("bn" is the language code for Bengali)
                 var selectElement = new SelectElement(targetLangDropdown);
                 selectElement.SelectByValue("bn");
-
+                Thread.Sleep(2000);
                 // Wait for translation to complete (looking for textarea2 which contains the result)
                 var resultTextarea = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("textarea2")));
 
                 // Add a small delay to ensure translation is complete
-                await Task.Delay(2000);
+                await Task.Delay(5000);
 
                 // Get the translated text
                 string translatedText = resultTextarea.GetAttribute("value");
