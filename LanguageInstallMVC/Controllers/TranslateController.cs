@@ -78,116 +78,168 @@ namespace LanguageInstallMVC.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<IActionResult> TranslateAll(string languageCode)
         {
-            //const int batchSize = 1;
-            //bool hasMoreRows;
 
-            //do
-            //{
-                //// Fetch 15 rows at a time that don't have a translation for the requested language
-                //var batch = await _dbContext.MainTables
-                //    .Include(mt => mt.Translations)
-                //    .Where(mt => !mt.Translations.Any(t => t.LanguageCode == languageCode))
-                //    .Take(batchSize)
-                //    .ToListAsync();
+            var englishTexts = await _dbContext.MainTables
+                .Include(mt => mt.Translations)
+                .Where(mt => !mt.Translations.Any(t => t.LanguageCode == languageCode)).ToListAsync();
 
-                //hasMoreRows = batch.Any();
 
-                //if (!hasMoreRows) break;
-
-                // Extract English texts
-                var englishTexts = await _dbContext.MainTables
-                    .Include(mt => mt.Translations)
-                    .Where(mt => !mt.Translations.Any(t => t.LanguageCode == languageCode)).ToListAsync();
-
-            // Merge texts using a separator
-            // Configure Selenium WebDriver
             var options = new ChromeOptions();
-               // options.AddArgument("--headless"); // Run browser in headless mode
-                options.AddArgument("--disable-gpu");
-                options.AddArgument("--no-sandbox");
+            // options.AddArgument("--headless"); // Run browser in headless mode
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--no-sandbox");
 
-                using (var driver = new ChromeDriver(options))
+            using (var driver = new ChromeDriver(options))
+            {
+                try
                 {
-                    try
-                    {
-                        // Open Google Translate
-                        string url = $"https://translate.google.com/?hl=en&sl=en&tl={languageCode}&op=translate";
-                        driver.Navigate().GoToUrl(url);
+                    // Open Google Translate
+                    string url = $"https://translate.google.com/?hl=en&sl=en&tl={languageCode}&op=translate";
+                    driver.Navigate().GoToUrl(url);
 
-                        foreach (var item in englishTexts)
+                    Thread.Sleep(1000);
+
+                    var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
+
+                    foreach (var item in englishTexts)
+                    {
+
+                        // Locate the input box and enter the text
+                      
+                        sourceTextBox.Clear();
+                        sourceTextBox.SendKeys(item.EnglishText);
+
+                        // Wait for the translation to complete
+                        Thread.Sleep(1000);
+
+                        //// Retrieve the translated text
+                        //var outputBox = driver.FindElement(By.XPath("//div[@class='J0lOec']"));
+                        //result = outputBox.Text;
+
+                        // Wait for translation with WebDriverWait instead of Thread.Sleep
+                        var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+                        Thread.Sleep(1000);
+
+                        // var translationContainer = wait.Until(d => d.FindElement(By.ClassName("ryNqvb")));
+                        var translationContainer = wait.Until(d => d.FindElement(By.ClassName("usGWQd")));
+                        var result = translationContainer.Text;
+
+                        var translation = new Translation
                         {
-                            Thread.Sleep(1000);
+                            MainTableID = item.ID,
+                            LanguageCode = languageCode,
+                            TranslatedText = result,
+                        };
 
-                            // Locate the input box and enter the text
-                            var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
-                            sourceTextBox.Clear();
-                            sourceTextBox.SendKeys(item.EnglishText);
-
-                            // Wait for the translation to complete
-                            Thread.Sleep(1000);
-
-                            //// Retrieve the translated text
-                            //var outputBox = driver.FindElement(By.XPath("//div[@class='J0lOec']"));
-                            //result = outputBox.Text;
-
-                            // Wait for translation with WebDriverWait instead of Thread.Sleep
-                            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                            Thread.Sleep(1000);
-                            var translationContainer = wait.Until(d => d.FindElement(By.ClassName("ryNqvb")));
-                            var result = translationContainer.Text;
-
-                            var translation = new Translation
-                            {
-                                MainTableID = item.ID,
-                                LanguageCode = languageCode,
-                                TranslatedText = result,
-                            };
-
-                            _dbContext.Translation.Add(translation);
-                            await _dbContext.SaveChangesAsync();
-                        }
-
-                        // Wait for the page to load
-
+                        _dbContext.Translation.Add(translation);
+                        await _dbContext.SaveChangesAsync();
                     }
-                    catch (Exception ex)
-                    {
-                        throw new Exception($"Error during translation: {ex.Message}");
-                    }
-                    finally
-                    {
-                        driver.Quit();
-                    }
+
+                    // Wait for the page to load
+
                 }
-                //// Map the translations back to the records and save
-                //for (int i = 0; i < batch.Count; i++)
-                //{
-                //    var record = batch[i];
-                //    var translatedText = translatedTexts[i];
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error during translation: {ex.Message}");
+                }
+                finally
+                {
+                    driver.Quit();
+                }
+            }
 
-                //    // Save the translation
-                //    var translation = new Translation
-                //    {
-                //        MainTableID = record.ID,
-                //        LanguageCode = languageCode,
-                //        TranslatedText = translatedText
-                //    };
-
-                //    _dbContext.Translation.Add(translation);
-                //}
-
-                //// Save changes to the database
-                //await _dbContext.SaveChangesAsync();
-
-            //} while (hasMoreRows);
 
             //ViewBag.ExecutionTime = $"Execution Time: {stopwatch.Elapsed.Minutes} minute(s) {stopwatch.Elapsed.Seconds} second(s)";
             return RedirectToAction("Index", "Translations");
 
         }
+
+
+
+
+
+
+
+        //BackUp It work
+        //[HttpPost]
+        //public async Task<IActionResult> TranslateAll(string languageCode)
+        //{
+
+        //        var englishTexts = await _dbContext.MainTables
+        //            .Include(mt => mt.Translations)
+        //            .Where(mt => !mt.Translations.Any(t => t.LanguageCode == languageCode)).ToListAsync();
+
+
+        //    var options = new ChromeOptions();
+        //       // options.AddArgument("--headless"); // Run browser in headless mode
+        //        options.AddArgument("--disable-gpu");
+        //        options.AddArgument("--no-sandbox");
+
+        //        using (var driver = new ChromeDriver(options))
+        //        {
+        //            try
+        //            {
+        //                // Open Google Translate
+        //                string url = $"https://translate.google.com/?hl=en&sl=en&tl={languageCode}&op=translate";
+        //                driver.Navigate().GoToUrl(url);
+
+        //                foreach (var item in englishTexts)
+        //                {
+        //                    Thread.Sleep(1000);
+
+        //                    // Locate the input box and enter the text
+        //                    var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
+        //                    sourceTextBox.Clear();
+        //                    sourceTextBox.SendKeys(item.EnglishText);
+
+        //                    // Wait for the translation to complete
+        //                    Thread.Sleep(1000);
+
+        //                    //// Retrieve the translated text
+        //                    //var outputBox = driver.FindElement(By.XPath("//div[@class='J0lOec']"));
+        //                    //result = outputBox.Text;
+
+        //                    // Wait for translation with WebDriverWait instead of Thread.Sleep
+        //                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+        //                    Thread.Sleep(1000);
+        //                   // var translationContainer = wait.Until(d => d.FindElement(By.ClassName("ryNqvb")));
+        //                    var translationContainer = wait.Until(d => d.FindElement(By.ClassName("usGWQd")));
+        //                    var result = translationContainer.Text;
+
+        //                    var translation = new Translation
+        //                    {
+        //                        MainTableID = item.ID,
+        //                        LanguageCode = languageCode,
+        //                        TranslatedText = result,
+        //                    };
+
+        //                    _dbContext.Translation.Add(translation);
+        //                    await _dbContext.SaveChangesAsync();
+        //                }
+
+        //                // Wait for the page to load
+
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                throw new Exception($"Error during translation: {ex.Message}");
+        //            }
+        //            finally
+        //            {
+        //                driver.Quit();
+        //            }
+        //        }
+
+
+        //    //ViewBag.ExecutionTime = $"Execution Time: {stopwatch.Elapsed.Minutes} minute(s) {stopwatch.Elapsed.Seconds} second(s)";
+        //    return RedirectToAction("Index", "Translations");
+
+        //}
 
         //[HttpPost]
         //public async Task<IActionResult> TranslateAll(string languageCode)
