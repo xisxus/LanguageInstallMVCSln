@@ -9,22 +9,33 @@
 
 <!-- Language dropdown -->
 <form method="get" action="@Url.Action("Index", "Translations")">
-    <div class="form-group">
-        <label for="languageCode">Select Language</label>
-        <select id="languageCode" name="languageCode" class="form-control">
-            <option value="">-- All Languages --</option>
-            @* @foreach (var languageCode in ViewData["LanguageCodes"] as List<string>) *@
-            @foreach (var languageCode in ViewBag.lang)
-            {
-                <option value="@languageCode">@languageCode</option>
-            }
-        </select>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="languageCode">Select Language</label>
+                <select id="languageCode" name="languageCode" class="form-control">
+                    <option value="">-- All Languages --</option>
+                    @* @foreach (var languageCode in ViewData["LanguageCodes"] as List<string>) *@
+                    @foreach (var languageCode in ViewBag.lang)
+                    {
+                        <option value="@languageCode">@languageCode</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="searchText">Search</label>
+                <input type="text" id="searchText" name="searchText" class="form-control" value="@ViewBag.SearchText" placeholder="Search in English or Translated Text" />
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="searchText">Search</label>
-        <input type="text" id="searchText" name="searchText" class="form-control" value="@ViewBag.SearchText" placeholder="Search in English or Translated Text" />
-    </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+
+
+    
+    
+    <button type="submit" class="btn btn-primary mt-2">Filter</button>
 </form>
 
 <!-- Translations Table -->
