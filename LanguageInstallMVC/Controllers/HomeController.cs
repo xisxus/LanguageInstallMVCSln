@@ -17,7 +17,7 @@ namespace LanguageInstallMVC.Controllers
         }
 
 
-      public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var languageCode = HttpContext.Items["Language"] as string ?? "en";
 

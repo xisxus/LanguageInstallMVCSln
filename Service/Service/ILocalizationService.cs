@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageInstall.Data.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LanguageInstall.Service.Service
 {
@@ -66,6 +67,8 @@ namespace LanguageInstall.Service.Service
             if (mainEntry == null) return key; // Fallback to English text
 
             var translation = mainEntry.Translations.FirstOrDefault(t => t.LanguageCode == languageCode);
+
+           
 
             return translation?.TranslatedText ?? key; // Fallback to English text
         }

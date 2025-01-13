@@ -33,12 +33,35 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
+//app.Use(async (context, next) =>
+//{
+//    var language = context.Request.Cookies["Language"] ?? "en"; // Default to English
+//    context.Items["Language"] = language;
+//    await next();
+//});
+
+
 app.Use(async (context, next) =>
 {
     var language = context.Request.Cookies["Language"] ?? "en"; // Default to English
     context.Items["Language"] = language;
+
+    // Optionally, set the cookie if it doesn't exist
+    if (context.Request.Cookies["Language"] == null)
+    {
+        context.Response.Cookies.Append("Language", "en", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Lax
+        });
+    }
+
     await next();
 });
+
+
+
 
 
 app.UseRouting();

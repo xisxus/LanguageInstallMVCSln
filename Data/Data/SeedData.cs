@@ -13,7 +13,7 @@ namespace LanguageInstall.Data.Data
     {
         public static List<MainTable> MainTables => new List<MainTable>
         {
-            new MainTable { ID = 1, EnglishText = "First Name" },
+                new MainTable { ID = 1, EnglishText = "First Name" },
                 new MainTable { ID = 2, EnglishText = "Last Name" },
                 new MainTable { ID = 3, EnglishText = "Submit" },
                 new MainTable { ID = 4, EnglishText = "Home" },
@@ -50,74 +50,77 @@ namespace LanguageInstall.Data.Data
                 new MainTable { ID = 35, EnglishText = "Leave Apply" },
                 new MainTable { ID = 36, EnglishText = "Half Day" },
                 new MainTable { ID = 37, EnglishText = "Full Day" },
-                new MainTable { ID = 38, EnglishText = "Short Leave" }
+                new MainTable { ID = 38, EnglishText = "Short Leave" },
+                new MainTable { ID = 39, EnglishText = "Leave Duration" },
+                new MainTable { ID = 40, EnglishText = "Select Employee" },
+                new MainTable { ID = 41, EnglishText = "Select Leave Format" },
+                new MainTable { ID = 42, EnglishText = "Select Leave Type" },
+                new MainTable { ID = 43, EnglishText = "Sick Leave" },
+                new MainTable { ID = 44, EnglishText = "Casual Leave" },
+                new MainTable { ID = 45, EnglishText = "Select Leave Type" },
+                new MainTable { ID = 46, EnglishText = "Enter Reason" },
+                new MainTable { ID = 47, EnglishText = "Cancel" },
+                new MainTable { ID = 48, EnglishText = "Entry ID" },
+                new MainTable { ID = 49, EnglishText = "--Select Employee--" },
+                new MainTable { ID = 50, EnglishText = "Additional Information" }
 
         };
-        //public static void Initialize(IServiceProvider serviceProvider)
-        //{
-        //    using (var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()))
-        //    {
-        //        if (context.MainTables.Any())
-        //        {
-        //            return;   // DB has been seeded
-        //        }
 
-        //        var mainTables = new List<MainTable>
-        //        {
-        //            new MainTable { EnglishText = "First Name" },
-        //            new MainTable { EnglishText = "Last Name" },
-        //            new MainTable { EnglishText = "Submit" },
-        //            new MainTable { EnglishText = "Home" },
-        //            new MainTable { EnglishText = "Human Resource Management" },
-        //            new MainTable { EnglishText = "Leave Management" },
-        //            new MainTable { EnglishText = "Operation" },
-        //            new MainTable { EnglishText = "Leave Application Entry" },
-        //            new MainTable { EnglishText = "Company" },
-        //            new MainTable { EnglishText = "Employee ID" },
-        //            new MainTable { EnglishText = "Employee Name" },
-        //            new MainTable { EnglishText = "Designation" },
-        //            new MainTable { EnglishText = "Department" },
-        //            new MainTable { EnglishText = "Immediate Supervisor" },
-        //            new MainTable { EnglishText = "Head of Department" },
-        //            new MainTable { EnglishText = "Apply Leave Format" },
-        //            new MainTable { EnglishText = "Leave Type" },
-        //            new MainTable { EnglishText = "From" },
-        //            new MainTable { EnglishText = "Day(s)" },
-        //            new MainTable { EnglishText = "To" },
-        //            new MainTable { EnglishText = "Half Day" },
-        //            new MainTable { EnglishText = "First Half" },
-        //            new MainTable { EnglishText = "Second Half" },
-        //            new MainTable { EnglishText = "File Attachment" },
-        //            new MainTable { EnglishText = "Reason" },
-        //            new MainTable { EnglishText = "Leave Apply" },
-        //            new MainTable { EnglishText = "Select Dropdown Options" },
-        //            new MainTable { EnglishText = "--Select--" },
-        //            new MainTable { EnglishText = "--Select Apply Leave Format--" },
-        //            new MainTable { EnglishText = "Half Day Leave" },
-        //            new MainTable { EnglishText = "Full Day Leave" },
-        //            new MainTable { EnglishText = "Short Leave" },
-        //            new MainTable { EnglishText = "--Select--" },
-        //            new MainTable { EnglishText = "Button and Action Text" },
-        //            new MainTable { EnglishText = "Leave Apply" },
-        //            new MainTable { EnglishText = "Half Day" },
-        //            new MainTable { EnglishText = "Full Day" },
-        //            new MainTable { EnglishText = "Short Leave" },
-        //            new MainTable { EnglishText = "Other" },
-        //            new MainTable { EnglishText = "--Select Employee--" },
-        //            new MainTable { EnglishText = "Cancel" },
-        //            new MainTable { EnglishText = "Entry ID" },
-        //            new MainTable { EnglishText = "Select Leave Format" },
-        //            new MainTable { EnglishText = "Select Leave Type" },
-        //            new MainTable { EnglishText = "Sick Leave" },
-        //            new MainTable { EnglishText = "Casual Leave" },
-        //            new MainTable { EnglishText = "Leave Duration" },
-        //            new MainTable { EnglishText = "Additional Information" },
-        //            new MainTable { EnglishText = "Select Employee" },
-        //        };
 
-        //        context.MainTables.AddRange(mainTables);
-        //        context.SaveChanges();
-        //    }
-        //}
+        public static List<Translation> Translations => new List<Translation>
+        {
+            new Translation { ID = 1, MainTableID = 1, LanguageCode = "bn", TranslatedText = "প্রথম নাম" },
+            new Translation { ID = 2, MainTableID = 2, LanguageCode = "bn", TranslatedText = "শেষ নাম" },
+            new Translation { ID = 3, MainTableID = 3, LanguageCode = "bn", TranslatedText = "জমা দিন" },
+            new Translation { ID = 4, MainTableID = 4, LanguageCode = "bn", TranslatedText = "বাড়ি" },
+            new Translation { ID = 5, MainTableID = 5, LanguageCode = "bn", TranslatedText = "মানবসম্পদ পরিচালনা" },
+            new Translation { ID = 6, MainTableID = 6, LanguageCode = "bn", TranslatedText = "ব্যবস্থাপনা ছেড়ে দিন" },
+            new Translation { ID = 7, MainTableID = 7, LanguageCode = "bn", TranslatedText = "অপারেশন" },
+            new Translation { ID = 8, MainTableID = 8, LanguageCode = "bn", TranslatedText = "অ্যাপ্লিকেশন এন্ট্রি ছেড়ে দিন" },
+            new Translation { ID = 9, MainTableID = 9, LanguageCode = "bn", TranslatedText = "সংস্থা" },
+            new Translation { ID = 10, MainTableID = 10, LanguageCode = "bn", TranslatedText = "কর্মচারী আইডি" },
+            new Translation { ID = 11, MainTableID = 11, LanguageCode = "bn", TranslatedText = "কর্মচারীর নাম" },
+            new Translation { ID = 12, MainTableID = 12, LanguageCode = "bn", TranslatedText = "উপাধি" },
+            new Translation { ID = 13, MainTableID = 13, LanguageCode = "bn", TranslatedText = "বিভাগ" },
+            new Translation { ID = 14, MainTableID = 14, LanguageCode = "bn", TranslatedText = "তাত্ক্ষণিক সুপারভাইজার" },
+            new Translation { ID = 15, MainTableID = 15, LanguageCode = "bn", TranslatedText = "বিভাগের প্রধান" },
+            new Translation { ID = 16, MainTableID = 16, LanguageCode = "bn", TranslatedText = "ছুটি ফর্ম্যাট প্রয়োগ করুন" },
+            new Translation { ID = 17, MainTableID = 17, LanguageCode = "bn", TranslatedText = "ছেড়ে দিন" },
+            new Translation { ID = 18, MainTableID = 18, LanguageCode = "bn", TranslatedText = "থেকে" },
+            new Translation { ID = 19, MainTableID = 19, LanguageCode = "bn", TranslatedText = "দিন (গুলি)" },
+            new Translation { ID = 20, MainTableID = 20, LanguageCode = "bn", TranslatedText = "থেকে" },
+            new Translation { ID = 21, MainTableID = 21, LanguageCode = "bn", TranslatedText = "অর্ধ দিন" },
+            new Translation { ID = 22, MainTableID = 22, LanguageCode = "bn", TranslatedText = "প্রথমার্ধ" },
+            new Translation { ID = 23, MainTableID = 23, LanguageCode = "bn", TranslatedText = "দ্বিতীয়ার্ধ" },
+            new Translation { ID = 24, MainTableID = 24, LanguageCode = "bn", TranslatedText = "ফাইল সংযুক্তি" },
+            new Translation { ID = 25, MainTableID = 25, LanguageCode = "bn", TranslatedText = "কারণ" },
+            new Translation { ID = 26, MainTableID = 26, LanguageCode = "bn", TranslatedText = "আবেদন করুন" },
+            new Translation { ID = 27, MainTableID = 27, LanguageCode = "bn", TranslatedText = "ড্রপডাউন বিকল্পগুলি নির্বাচন করুন" },
+            new Translation { ID = 28, MainTableID = 28, LanguageCode = "bn", TranslatedText = "-নির্বাচন-" },
+            new Translation { ID = 29, MainTableID = 29, LanguageCode = "bn", TranslatedText = "-নির্বাচন করুন ছুটির ফর্ম্যাট প্রয়োগ করুন-" },
+            new Translation { ID = 30, MainTableID = 30, LanguageCode = "bn", TranslatedText = "অর্ধ দিনের ছুটি" },
+            new Translation { ID = 31, MainTableID = 31, LanguageCode = "bn", TranslatedText = "পুরো দিন ছুটি" },
+            new Translation { ID = 32, MainTableID = 32, LanguageCode = "bn", TranslatedText = "সংক্ষিপ্ত ছুটি" },
+            new Translation { ID = 33, MainTableID = 33, LanguageCode = "bn", TranslatedText = "-নির্বাচন-" },
+            new Translation { ID = 34, MainTableID = 34, LanguageCode = "bn", TranslatedText = "বোতাম এবং ক্রিয়া পাঠ্য" },
+            new Translation { ID = 35, MainTableID = 35, LanguageCode = "bn", TranslatedText = "আবেদন করুন" },
+            new Translation { ID = 36, MainTableID = 36, LanguageCode = "bn", TranslatedText = "অর্ধ দিন" },
+            new Translation { ID = 37, MainTableID = 37, LanguageCode = "bn", TranslatedText = "পুরো দিন" },
+            new Translation { ID = 38, MainTableID = 38, LanguageCode = "bn", TranslatedText = "সংক্ষিপ্ত ছুটি" },
+            new Translation { ID = 39, MainTableID = 39, LanguageCode = "bn", TranslatedText = "সময়কাল" },
+            new Translation { ID = 40, MainTableID = 40, LanguageCode = "bn", TranslatedText = "কর্মচারী নির্বাচন করুন" },
+            new Translation { ID = 41, MainTableID = 41, LanguageCode = "bn", TranslatedText = "ছুটি ফর্ম্যাট নির্বাচন করুন" },
+            new Translation { ID = 42, MainTableID = 42, LanguageCode = "bn", TranslatedText = "ছুটি প্রকার নির্বাচন করুন" },
+            new Translation { ID = 43, MainTableID = 43, LanguageCode = "bn", TranslatedText = "অসুস্থ ছুটি" },
+            new Translation { ID = 44, MainTableID = 44, LanguageCode = "bn", TranslatedText = "নৈমিত্তিক ছুটি" },
+            new Translation { ID = 45, MainTableID = 45, LanguageCode = "bn", TranslatedText = "ছুটি প্রকার নির্বাচন করুন" },
+            new Translation { ID = 46, MainTableID = 46, LanguageCode = "bn", TranslatedText = "কারণ লিখুন" },
+            new Translation { ID = 47, MainTableID = 47, LanguageCode = "bn", TranslatedText = "বাতিল" },
+            new Translation { ID = 48, MainTableID = 48, LanguageCode = "bn", TranslatedText = "এন্ট্রি আইডি" },
+            new Translation { ID = 49, MainTableID = 49, LanguageCode = "bn", TranslatedText = "-- কর্মচারী নির্বাচন করুন --" },
+            new Translation { ID = 50, MainTableID = 50, LanguageCode = "bn", TranslatedText = "অতিরিক্ত তথ্য" }
+        };
+
+
     }
 }

@@ -23,8 +23,15 @@ namespace LanguageInstall.Data.Data
         {
             base.OnModelCreating(modelBuilder); 
             // Seed data from static class
-            modelBuilder.Entity<MainTable>().HasData(SeedData.MainTables.ToArray()); }
+            modelBuilder.Entity<MainTable>().HasData(SeedData.MainTables.ToArray());
 
+            modelBuilder.Entity<Translation>().HasData(SeedData.Translations.ToArray());
 
         }
+
+              
+    }
+
 }
+        
+

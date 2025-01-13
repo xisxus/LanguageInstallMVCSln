@@ -102,8 +102,8 @@ namespace LanguageInstallMVC.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(mainTable);
@@ -121,8 +121,8 @@ namespace LanguageInstallMVC.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(mainTable);
+            //}
+            //return View(mainTable);
         }
 
         // GET: MainTables/Delete/5
