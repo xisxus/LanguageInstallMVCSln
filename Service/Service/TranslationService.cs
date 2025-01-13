@@ -77,7 +77,7 @@ namespace LanguageInstall.Service.Service
                     driver.Navigate().GoToUrl(url);
 
                     // Wait for the page to load
-                    Thread.Sleep(3000);
+                   // Thread.Sleep(2000);
 
                     // Locate the input box and enter the text
                     var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
@@ -85,7 +85,7 @@ namespace LanguageInstall.Service.Service
                     sourceTextBox.SendKeys(text);
 
                     // Wait for the translation to complete
-                    Thread.Sleep(3000);
+                    //Thread.Sleep(2000);
 
                     //// Retrieve the translated text
                     //var outputBox = driver.FindElement(By.XPath("//div[@class='J0lOec']"));
@@ -93,7 +93,7 @@ namespace LanguageInstall.Service.Service
 
                     // Wait for translation with WebDriverWait instead of Thread.Sleep
                     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                    Thread.Sleep(3000);
+                    Thread.Sleep(1000);
                     var translationContainer = wait.Until(d => d.FindElement(By.ClassName("ryNqvb")));
                     result = translationContainer.Text;
                 }
@@ -173,7 +173,7 @@ namespace LanguageInstall.Service.Service
         }
 
 
-        public string TranslateText(string text, string targetLanguage)
+        public async Task<string> TranslateText(string text, string targetLanguage)
         {
             string translatedText = string.Empty;
             IWebDriver driver = new ChromeDriver();

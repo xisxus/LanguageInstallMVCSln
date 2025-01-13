@@ -58,7 +58,7 @@ namespace LanguageInstallMVC.Controllers
 
             try
             {
-                var translatedText = await _translationService.TranslateTextAsync(text, targetLanguage);
+                var translatedText = await _translationService.PerformTranslation(text, targetLanguage);
                 ViewBag.TranslatedText = translatedText;
             }
             catch (Exception ex)

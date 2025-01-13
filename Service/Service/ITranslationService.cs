@@ -12,5 +12,6 @@ namespace LanguageInstall.Service.Service
         Task<string> TranslateTextToBengaliAsync(string inputText);
         Task<string> TranslateTextAsync2(string inputText, string targetLanguage);
         Task<string> PerformTranslation(string text, string targetLanguage);
+        Task<string> TranslateText(string text, string targetLanguage);
     }
 }
