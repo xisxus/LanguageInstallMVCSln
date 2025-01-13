@@ -1,335 +1,154 @@
 ﻿
 
 
-
-
-
 @{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = ViewBag.PageTitle;
 }
 
-<div class="row">
-    <div class="col-lg-8">
-        @* <div class="bg-light"> *@
-        @* <div class="container mt-4"> *@
+<div class="container-fluid">
+    <div class="row">
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item">Human Resource Management</li>
-                <li class="breadcrumb-item">Leave Management</li>
-                <li class="breadcrumb-item">Operation</li>
-                <li class="breadcrumb-item active">Leave Application Entry</li>
-            </ol>
-        </nav>
-
-        <!-- Main Card -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Leave Application Entry</h5>
-                <div>
-                    @*  <button class="btn btn-light"><i class="fas fa-trash"></i></button>
-                    <button class="btn btn-light"><i class="fas fa-print"></i></button>
-                    <button class="btn btn-light"><i class="fas fa-star"></i></button> *@
-                </div>
-            </div>
-
-            <div class="card-body">
-                <form id="leaveApplicationForm" method="post">
-
-
-                    <!-- Employee Info Section -->
-                    <style>
-                        .gradient-bg {
-                            background: linear-gradient(to right, rgb(244 246 249), rgb(216 228 241));
-                            padding: 10px;
-                            border-radius: 8px;
-                            color: black;
-                        }
-
-                        fieldset {
-                            border: 0px solid rgba(0, 0, 0, 0.2); /* Light border for the fieldset */
-                        }
-
-                        legend {
-                            font-weight: bold;
-                            font-size: 1.2em;
-                            color: black; /* Legend text color */
-                        }
-                    </style>
-
-                    <div class="gradient-bg mb-2 rounded p-3">
-                        @*  <fieldset>
-                            <legend class="fs-5 mb-3">Employee Information</legend> *@
-
-                        <!-- Company Dropdown -->
-                        <div class="row mb-1">
-                            <label class="col-2 col-form-label-sm required">Company</label>
-                            <div class="col-4">
-                                <select id="companyDropdown" name="selectedItem" class=" form-control  form-control-sm">
-                                    <option value="">--Select--</option>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Employee ID and Name -->
-                        <div class="row mb-1">
-                            <label class="col-2 col-form-label-sm">Employee ID</label>
-                            <div class="col-4">
-                                <select id="employeeDropdown" class=" form-control  form-control-sm">
-                                    <option value="">--Select Employee--</option>
-                                </select>
-                            </div>
-
-                            <label class="col-2 col-form-label-sm">Employee Name</label>
-                            <div class="col-4">
-                                <input id="employeeName" type="text" class="form-control form-control-sm" value="" readonly style="border: none; outline: none; background: transparent;">
-                            </div>
-                        </div>
-
-                        <!-- Designation and Department -->
-                        <div class="row mb-1">
-                            <label class="col-2 col-form-label-sm">Designation</label>
-                            <div class="col-4">
-                                <input id="designation" type="text" class="form-control form-control-sm" value="" readonly style="border: none; outline: none; background: transparent;">
-                            </div>
-
-                            <label class="col-2 col-form-label-sm">Department</label>
-                            <div class="col-4">
-                                <input id="department" type="text" class="form-control form-control-sm" value="" readonly style="border: none; outline: none; background: transparent;">
-                            </div>
-                        </div>
-                        @* </fieldset> *@
-                    </div>
-
-
-
-
-
-
-                    <div class="row mb-2">
-
-
-
-                        <label class="col-2 col-form-label-sm">Entry ID</label>
-                        <div class="col-4">
-                            @* <input asp-for="EntryId" id="entryId" type="text" class="form-control" value="@ViewBag.entryId" readonly> *@
-                            <input id="entryId" type="text" class="form-control form-control-sm" readonly>
-                        </div>
-                    </div>
-
-                    <!-- Leave Application Section -->
-                    <div class="row mb-2">
-                        <label class="col-2 col-form-label-sm required">Immediate Supervisor</label>
-                        <div class="col-4">
-                            <select id="immediateSupervisor" class="form-control  form-control-sm">
-                                <option selected></option>
-                            </select>
-                        </div>
-                        <label class="col-2 col-form-label-sm">Head of Department</label>
-                        <div class="col-4">
-                            <select id="headOfDepartment" class="form-control  form-control-sm">
-                                <option selected></option>
-                            </select>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="row mb-2">
-                        <label class="col-2 col-form-label  form-control-sm required">Apply Leave Format</label>
-                        <div class="col-4">
-                            <select class="form-control  form-control-sm" id="applyLeaveFormat" name="selectedItem">
-                                <option selected>--Select Apply Leave Format--</option>
-                                <option value="halfDayLeave">Half Day Leave</option>
-                                <option value="fullDayLeave">Full Day Leave</option>
-                                <option value="shortLeave">Short Leave</option>
-                            </select>
-                        </div>
-                        <label class="col-2 col-form-label-sm ">Leave Type</label>
-                        <div class="col-4">
-                            <select id="leaveTypeDropdown" name="selectedItem" class="form-control  form-control-sm">
-                                <option value="">--Select--</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="fullDayInputs" class="row mb-2" style="display: none;">
-                        <label class="col-2 col-form-label  form-control-sm required">From</label>
-                        <div class="col-4">
-                            <input type="date" id="fromDate" class="form-control  form-control-sm">
-                        </div>
-                        <label class="col-1 col-form-label">Day(s)</label>
-                        <div class="col-1">
-                            <input type="number" id="daysBetween" class="form-control  form-control-sm" readonly>
-                        </div>
-                        <label class="col-1 col-form-label  form-control-sm required">To</label>
-                        <div class="col-3">
-                            <input type="date" id="toDate" class="form-control  form-control-sm">
-                        </div>
-                    </div>
-
-                    <div id="halfDayInputs" class="row mb-2" style="display: none;">
-                        <label class="col-2 col-form-label  form-control-sm">Half Day</label>
-                        <div class="col-6">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="halfDayCheckbox">
-                                <label class="form-check-label" for="halfDayCheckbox">Half Day</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="halfDayType" id="firstHalf">
-                                <label class="form-check-label" for="firstHalf">First Half</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="halfDayType" id="secondHalf">
-                                <label class="form-check-label" for="secondHalf">Second Half</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="oneDayInputs" class="row mb-2" style="display: none;">
-                        <label class="col-2 col-form-label  form-control-sm required">From</label>
-                        <div class="col-4">
-                            <input type="time" id="fromTime" class="form-control  form-control-sm">
-                        </div>
-                        <label class="col-1 col-form-label">Hour(s)</label>
-                        <div class="col-1">
-                            <input type="text" id="hoursBetween" class="form-control  form-control-sm" readonly>
-                        </div>
-                        <label class="col-1 col-form-label-sm  required">To</label>
-                        <div class="col-3">
-                            <input type="time" id="toTime" class="form-control  form-control-sm">
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="row mb-2">
-                        <label class="col-2 col-form-label-sm">File Attachment</label>
-                        <div class="col-4">
-                            <input type="file" class="form-control  form-control-sm" id="leaveFile">
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <label class="col-2 col-form-label-sm">Reason</label>
-                        <div class="col-4">
-                            <textarea class="form-control  form-control-sm" rows="3"></textarea>
-                        </div>
-                        <div class="col-6 text-end">
-                            <button type="submit" class="btn btn-primary">Leave Apply</button>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div id="calendarContainer" class="row mb-2">
-                        @* style="display: none; " *@
-                        <div class="col-12">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </form>
-            </div>
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">@ViewBag.Home</a></li>
+                    <li class="breadcrumb-item">@ViewBag.HumanResourceManagement</li>
+                    <li class="breadcrumb-item">@ViewBag.LeaveManagement</li>
+                    <li class="breadcrumb-item">@ViewBag.Operation</li>
+                    <li class="breadcrumb-item active">@ViewBag.PageTitle</li>
+                </ol>
+            </nav>
         </div>
-        @* </div> *@
-
-
-        @* </div> *@
-
-
-
-
-        @* <div class="row ms-2"> *@
-
-
-
-
-
     </div>
 
-    <div class="col-lg-4">
-        <!-- First Card: Leave Status Table -->
-        <div class="card mt-5">
-            <div class="card-header">
-                <h5 class="mt-0"><b>Leave Status</b></h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="leaveAvailableTable" class="display table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>LN</th>
-                                <th>YLE</th>
-                                <th>TAK</th>
-                                <th>BAL</th>
-                                <th>Sh.L</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Data rows will go here -->
-                        </tbody>
-                    </table>
+    <div class="row">
+        <!-- Main Form Section -->
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">@ViewBag.PageTitle</h5>
+                </div>
+                <div class="card-body">
+                    <form id="leaveApplicationForm" method="post">
+                        <!-- Employee Info Section -->
+                        <div class="gradient-bg mb-2 rounded p-3">
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm required">@ViewBag.CompanyLabel</label>
+                                <div class="col-4">
+                                    <select id="companyDropdown" name="selectedItem" class="form-control form-control-sm">
+                                        <option value="">@ViewBag.SelectOption</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm">@ViewBag.EmployeeIdLabel</label>
+                                <div class="col-4">
+                                    <select id="employeeDropdown" class="form-control form-control-sm">
+                                        <option value="">@ViewBag.SelectEmployee</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-2 col-form-label-sm">@ViewBag.EmployeeNameLabel</label>
+                                <div class="col-4">
+                                    <input id="employeeName" type="text" class="form-control form-control-sm" readonly style="border: none; outline: none; background: transparent;">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm">@ViewBag.DesignationLabel</label>
+                                <div class="col-4">
+                                    <input id="designation" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+
+                                <label class="col-2 col-form-label-sm">@ViewBag.DepartmentLabel</label>
+                                <div class="col-4">
+                                    <input id="department" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm">@ViewBag.EntryIdLabel</label>
+                                <div class="col-4">
+                                    <input id="entryId" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+
+                                <label class="col-2 col-form-label-sm">@ViewBag.SupervisorLabel</label>
+                                <div class="col-4">
+                                    <input id="supervisor" type="text" class="form-control form-control-sm" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Leave Information Section -->
+                        <div class="gradient-bg mb-2 rounded p-3">
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm">@ViewBag.LeaveFormatLabel</label>
+                                <div class="col-4">
+                                    <select id="leaveFormat" name="leaveFormat" class="form-control form-control-sm">
+                                        <option value="">@ViewBag.SelectLeaveFormat</option>
+                                        <option value="full">@ViewBag.FullDayLeave</option>
+                                        <option value="half">@ViewBag.HalfDayLeave</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-2 col-form-label-sm">@ViewBag.LeaveTypeLabel</label>
+                                <div class="col-4">
+                                    <select id="leaveType" name="leaveType" class="form-control form-control-sm">
+                                        <option value="">@ViewBag.SelectLeaveType</option>
+                                        <option value="sick">@ViewBag.SickLeave</option>
+                                        <option value="casual">@ViewBag.CasualLeave</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <label class="col-2 col-form-label-sm">@ViewBag.ReasonLabel</label>
+                                <div class="col-4">
+                                    <textarea id="reason" class="form-control form-control-sm" rows="3" placeholder="@ViewBag.ReasonPlaceholder"></textarea>
+                                </div>
+
+                                <label class="col-2 col-form-label-sm">@ViewBag.FileAttachmentLabel</label>
+                                <div class="col-4">
+                                    <input type="file" id="fileAttachment" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="row mb-1">
+                            <div class="col-12 d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">@ViewBag.SubmitButton</button>
+                                <button type="reset" class="btn btn-secondary">@ViewBag.CancelButton</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Second Card: Approved Leave Table -->
-        <div class="card mt-2">
-            <div class="card-header">
-                <h5 class="mt-0"><b>Approved Leave</b></h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="leaveTakenTable" class="display table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Approved Days</th>
-                                <th>No of Days</th>
-                                <th>Reason</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Data rows will go here -->
-                        </tbody>
-                    </table>
+        <!-- Additional Information Section (if needed) -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6>@ViewBag.AdditionalInfoTitle</h6>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>@ViewBag.HalfDayLeave @ViewBag.LeaveDuration</li>
+                        <li>@ViewBag.FullDayLeave @ViewBag.LeaveDuration</li>
+                        <li>@ViewBag.ShortLeave @ViewBag.LeaveDuration</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 
-<form method="post" action="/Form/Submit">
+
+@* <form method="post" action="/Form/Submit">
     <div>
         <label>@ViewBag.FirstNameLabel</label>
         <input type="text" name="FirstName" placeholder="@ViewBag.FirstNameLabel" />
@@ -339,7 +158,7 @@
         <input type="text" name="LastName" placeholder="@ViewBag.LastNameLabel" />
     </div>
     <button type="submit">@ViewBag.SubmitButton</button>
-</form>
+</form> *@
 
 
 

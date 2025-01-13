@@ -5,6 +5,9 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using LanguageInstall.Data.Data;
+using LanguageInstall.Data.Model;
+using Microsoft.EntityFrameworkCore;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -18,11 +21,13 @@ namespace LanguageInstall.Service.Service
     public class TranslationService : ITranslationService
     {
         private readonly HttpClient _httpClient;
-        
+        private readonly AppDbContext _context;
 
-        public TranslationService(HttpClient httpClient)
+
+        public TranslationService(HttpClient httpClient, AppDbContext context)
         {
             _httpClient = httpClient;
+            _context = context;
         }
 
         public async Task<string> TranslateTextAsync(string text, string targetLanguage)
@@ -50,6 +55,7 @@ namespace LanguageInstall.Service.Service
         }
 
 
+        
 
 
         public async Task<string> PerformTranslation(string text, string targetLanguage)

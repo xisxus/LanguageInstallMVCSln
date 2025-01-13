@@ -12,6 +12,7 @@ namespace LanguageInstall.Service.Service
     {
         string GetLocalizedString(string key, string languageCode);
         Task<string> GetTranslationAsync(string key, string languageCode);
+        Task<List<string>> GetLang();
     }
 
     public class LocalizationService : ILocalizationService
@@ -23,6 +24,23 @@ namespace LanguageInstall.Service.Service
             _context = context;
         }
 
+        public async Task<List<string>> GetLang()
+        {
+            // Fetch distinct language codes from the Translation table
+            var languageCodes = await _context.Translation
+                .Select(t => t.LanguageCode)
+                .Distinct()
+                .ToListAsync();
+
+            // Add "en" at the beginning if it's not already in the list
+            if (!languageCodes.Contains("en"))
+            {
+                languageCodes.Insert(0, "en");
+            }
+
+
+            return languageCodes;
+        }
         public string GetLocalizedString(string key, string languageCode)
         {
             var mainEntry = _context.MainTables

@@ -17,5 +17,14 @@ namespace LanguageInstall.Data.Data
         
         public DbSet<Translation> Translation { get; set; }
         public DbSet<MainTable> MainTables { get; set; }
-    }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder); 
+            // Seed data from static class
+            modelBuilder.Entity<MainTable>().HasData(SeedData.MainTables.ToArray()); }
+
+
+        }
 }
