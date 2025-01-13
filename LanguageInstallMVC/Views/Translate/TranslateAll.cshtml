@@ -1,10 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Translate All Records";
+    ViewData["Title"] = "ins language";
 }
 
-<h1>Translate All Records</h1>
+<h1>Install New Language</h1>
 
-<p>Select a target language from the dropdown to translate all records.</p>
+<p>Select a target language from the dropdown to install new Language.</p>
+<p>Thats might be take sevaral minutes.</p>
 
 <form method="post" asp-action="TranslateAll">
     <div class="form-group">
@@ -25,7 +26,7 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Translate All</button>
+    <button type="submit" class="btn btn-primary">Install Now</button>
 </form>
 
 @if (ViewBag.Error != null)
