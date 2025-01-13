@@ -8,9 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Selenium.Support" Version="4.27.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.27.0" />
     <PackageReference Include="Selenium.WebDriverBackedSelenium" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\LanguageInstall.Data.csproj" />
   </ItemGroup>
 
 </Project>

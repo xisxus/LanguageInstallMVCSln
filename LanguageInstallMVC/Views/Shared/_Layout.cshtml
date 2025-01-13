@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LanguageInstallMVC.styles.css" asp-append-version="true" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
     <header>
@@ -38,6 +45,15 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Translate" asp-action="TranslateAll">TranslateAll</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="RazorHelper">RazorHelper</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Test/Index">Form</a> |
+                            <a href="/Home/ChangeLanguage?languageCode=en">English</a> |
+                            <a href="/Home/ChangeLanguage?languageCode=bn">Bangla</a> |
+                            <a href="/Home/ChangeLanguage?languageCode=fr">Français</a>
                         </li>
                     </ul>
                 </div>

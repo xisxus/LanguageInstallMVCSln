@@ -56,13 +56,22 @@ namespace LanguageInstallMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,EnglishText")] MainTable mainTable)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            try
             {
                 _context.Add(mainTable);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(mainTable);
+            catch (Exception)
+            {
+
+                throw;
+            }
+                
+            //}
+            //return View(mainTable);
         }
 
         // GET: MainTables/Edit/5

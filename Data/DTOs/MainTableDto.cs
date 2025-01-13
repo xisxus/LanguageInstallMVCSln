@@ -12,4 +12,5 @@ namespace LanguageInstall.Data.DTOs
         public string EnglishText { get; set; }
         public Dictionary<string, string> Translations { get; set; }
     }
+
 }

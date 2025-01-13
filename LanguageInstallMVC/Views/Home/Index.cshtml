@@ -1,4 +1,10 @@
-﻿@{
+﻿
+
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -321,3 +327,19 @@
 
 
 </div>
+
+
+<form method="post" action="/Form/Submit">
+    <div>
+        <label>@ViewBag.FirstNameLabel</label>
+        <input type="text" name="FirstName" placeholder="@ViewBag.FirstNameLabel" />
+    </div>
+    <div>
+        <label>@ViewBag.LastNameLabel</label>
+        <input type="text" name="LastName" placeholder="@ViewBag.LastNameLabel" />
+    </div>
+    <button type="submit">@ViewBag.SubmitButton</button>
+</form>
+
+
+

@@ -20,11 +20,37 @@ namespace LanguageInstallMVC.Controllers
         }
 
         // GET: Translations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string languageCode = null, string searchText = null)
         {
-            var appDbContext = _context.Translation.Include(t => t.MainTable);
-            return View(await appDbContext.ToListAsync());
+            // Start building the query with the Include
+            var translationsQuery = _context.Translation
+                .Include(t => t.MainTable) // Ensure Include is here
+                .Where(t => string.IsNullOrEmpty(languageCode) || t.LanguageCode == languageCode);
+
+            // If searchText is provided, filter by EnglishText or TranslatedText
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                translationsQuery = translationsQuery.Where(t =>
+                    t.MainTable.EnglishText.Contains(searchText) || t.TranslatedText.Contains(searchText));
+            }
+
+            // Await the translations query to get the filtered results
+            var translations = await translationsQuery.ToListAsync();
+
+            // Fetch distinct language codes
+            var languageCodes = await _context.Translation
+                .Select(t => t.LanguageCode)
+                .Distinct()
+                .ToListAsync();
+
+            // Pass the language codes and search text to the view
+            ViewData["LanguageCodes"] = languageCodes;
+            ViewBag.lang = languageCodes;
+            ViewBag.SearchText = searchText;
+
+            return View(translations);
         }
+
 
         // GET: Translations/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,14 +85,25 @@ namespace LanguageInstallMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,MainTableID,LanguageCode,TranslatedText")] Translation translation)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Add(translation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MainTableID"] = new SelectList(_context.MainTables, "ID", "EnglishText", translation.MainTableID);
-            return View(translation);
+            catch (Exception)
+            {
+
+                throw;
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    _context.Add(translation);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["MainTableID"] = new SelectList(_context.MainTables, "ID", "EnglishText", translation.MainTableID);
+            //return View(translation);
         }
 
         // GET: Translations/Edit/5
@@ -98,8 +135,8 @@ namespace LanguageInstallMVC.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(translation);
@@ -117,9 +154,9 @@ namespace LanguageInstallMVC.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["MainTableID"] = new SelectList(_context.MainTables, "ID", "EnglishText", translation.MainTableID);
-            return View(translation);
+            //}
+            //ViewData["MainTableID"] = new SelectList(_context.MainTables, "ID", "EnglishText", translation.MainTableID);
+            //return View(translation);
         }
 
         // GET: Translations/Delete/5

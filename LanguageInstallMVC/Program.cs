@@ -5,6 +5,8 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddScoped<ITranslationService, TranslationService>();
+builder.Services.AddScoped<ILocalizationService, LocalizationService>();
+
 
 builder.Services.AddHttpClient<TranslationService>();
 
@@ -28,6 +32,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.Use(async (context, next) =>
+{
+    var language = context.Request.Cookies["Language"] ?? "en"; // Default to English
+    context.Items["Language"] = language;
+    await next();
+});
+
 
 app.UseRouting();
 
