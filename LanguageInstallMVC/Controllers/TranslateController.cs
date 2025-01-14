@@ -86,13 +86,13 @@ namespace LanguageInstallMVC.Controllers
             switch (translationQuality)
             {
                 case "Good":
-                    sleepTime = 1000; // 1 second
+                    sleepTime = 2000; // 1 second
                     break;
                 case "Better":
-                    sleepTime = 2000; // 2 seconds
+                    sleepTime = 3000; // 2 seconds
                     break;
                 case "Best":
-                    sleepTime = 3000; // 3 seconds
+                    sleepTime = 4000; // 3 seconds
                     break;
                 default:
                     sleepTime = 2000; // Default to 2 seconds if no quality is selected
@@ -109,7 +109,7 @@ namespace LanguageInstallMVC.Controllers
             ViewBag.total = total;
 
             var options = new ChromeOptions();
-           // options.AddArgument("--headless");
+            options.AddArgument("--headless");
             options.AddArgument("--disable-gpu");
             options.AddArgument("--no-sandbox");
 
