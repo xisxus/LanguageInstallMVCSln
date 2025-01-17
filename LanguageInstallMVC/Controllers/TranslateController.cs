@@ -154,6 +154,8 @@ namespace LanguageInstallMVC.Controllers
                         await _hubContext.Clients.All.SendAsync("UpdateProgress", progress, total);
 
                     }
+                    // Notify clients when the operation is completed
+                    await _hubContext.Clients.All.SendAsync("OperationCompleted");
                 }
                 catch (Exception ex)
                 {
