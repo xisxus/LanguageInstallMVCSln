@@ -17,6 +17,8 @@ namespace LanguageInstall.Data.Data
         
         public DbSet<Translation> Translation { get; set; }
         public DbSet<MainTable> MainTables { get; set; }
+        public DbSet<LanguageList> LanguageLists { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +28,7 @@ namespace LanguageInstall.Data.Data
             modelBuilder.Entity<MainTable>().HasData(SeedData.MainTables.ToArray());
 
             modelBuilder.Entity<Translation>().HasData(SeedData.Translations.ToArray());
+            modelBuilder.Entity<LanguageList>().HasData(SeedData.LanguageLists.ToArray());
 
         }
 

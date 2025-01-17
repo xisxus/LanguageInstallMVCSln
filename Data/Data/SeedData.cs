@@ -122,5 +122,41 @@ namespace LanguageInstall.Data.Data
         };
 
 
+      
+        public static List<LanguageList> LanguageLists =>  new List<LanguageList>
+        {
+            new LanguageList { ID = 1, LanguageCode = "en", LanguageName = "English" },
+            new LanguageList { ID = 2, LanguageCode = "es", LanguageName = "Spanish" },
+            new LanguageList { ID = 3, LanguageCode = "fr", LanguageName = "French" },
+            new LanguageList { ID = 4, LanguageCode = "de", LanguageName = "German" },
+            new LanguageList { ID = 5, LanguageCode = "zh", LanguageName = "Chinese" },
+            new LanguageList { ID = 6, LanguageCode = "ja", LanguageName = "Japanese" },
+            new LanguageList { ID = 7, LanguageCode = "ko", LanguageName = "Korean" },
+            new LanguageList { ID = 8, LanguageCode = "ar", LanguageName = "Arabic" },
+            new LanguageList { ID = 9, LanguageCode = "hi", LanguageName = "Hindi" },
+            new LanguageList { ID = 10, LanguageCode = "ru", LanguageName = "Russian" },
+            new LanguageList { ID = 11, LanguageCode = "pt", LanguageName = "Portuguese" },
+            new LanguageList { ID = 12, LanguageCode = "it", LanguageName = "Italian" },
+            new LanguageList { ID = 13, LanguageCode = "nl", LanguageName = "Dutch" },
+            new LanguageList { ID = 14, LanguageCode = "sv", LanguageName = "Swedish" },
+            new LanguageList { ID = 15, LanguageCode = "no", LanguageName = "Norwegian" },
+            new LanguageList { ID = 16, LanguageCode = "da", LanguageName = "Danish" },
+            new LanguageList { ID = 17, LanguageCode = "fi", LanguageName = "Finnish" },
+            new LanguageList { ID = 18, LanguageCode = "pl", LanguageName = "Polish" },
+            new LanguageList { ID = 19, LanguageCode = "tr", LanguageName = "Turkish" },
+            new LanguageList { ID = 20, LanguageCode = "th", LanguageName = "Thai" },
+            new LanguageList { ID = 21, LanguageCode = "vi", LanguageName = "Vietnamese" },
+            new LanguageList { ID = 22, LanguageCode = "ms", LanguageName = "Malay" },
+            new LanguageList { ID = 23, LanguageCode = "id", LanguageName = "Indonesian" },
+            new LanguageList { ID = 24, LanguageCode = "el", LanguageName = "Greek" },
+            new LanguageList { ID = 25, LanguageCode = "he", LanguageName = "Hebrew" },
+            new LanguageList { ID = 26, LanguageCode = "ur", LanguageName = "Urdu" },
+            new LanguageList { ID = 27, LanguageCode = "bn", LanguageName = "Bengali" },
+            new LanguageList { ID = 28, LanguageCode = "ta", LanguageName = "Tamil" },
+            new LanguageList { ID = 29, LanguageCode = "te", LanguageName = "Telugu" },
+            new LanguageList { ID = 30, LanguageCode = "fa", LanguageName = "Persian" },
+        };
+        
+
     }
 }

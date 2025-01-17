@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ICollection<LanguageInstall.Data.Model.LanguageList>
+@{
     ViewData["Title"] = "Install New Language";
 }
  <link rel="stylesheet" href="~/css/StyleSheet.css">
@@ -9,24 +10,22 @@
 <form method="post" asp-action="TranslateAll">
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="languageCode">Target Language:</label>
-                <select class="form-control" id="languageCode" name="languageCode" required>
-                    <option value="">-- Select a Language --</option>
-                    <option value="en">English</option>
-                    <option value="fr">French</option>
-                    <option value="es">Spanish</option>
-                    <option value="de">German</option>
-                    <option value="zh">Chinese</option>
-                    <option value="ar">Arabic</option>
-                    <option value="hi">Hindi</option>
-                    <option value="bn">Bengali</option>
-                    <option value="ru">Russian</option>
-                    <option value="ja">Japanese</option>
-                </select>
+       
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="languageCode">Target Language:</label>
+                    <select class="form-control" id="languageCode" name="languageCode" required>
+                        <option value="">-- Select a Language --</option>
+                         @foreach (var item in Model)
+        {
+                        <option value="@item.LanguageCode">@item.LanguageName</option>
+        }
+                    </select>
+                </div>
             </div>
-        </div>
+
+        
+
         <div class="col-md-6">
             <div class="form-group">
                 <label for="translationQuality">Translation Quality:</label>

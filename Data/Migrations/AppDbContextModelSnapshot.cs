@@ -21,6 +21,209 @@ namespace LanguageInstall.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LanguageInstall.Data.Model.LanguageList", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LanguageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("LanguageLists");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            LanguageCode = "en",
+                            LanguageName = "English"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            LanguageCode = "es",
+                            LanguageName = "Spanish"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            LanguageCode = "fr",
+                            LanguageName = "French"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            LanguageCode = "de",
+                            LanguageName = "German"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            LanguageCode = "zh",
+                            LanguageName = "Chinese"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            LanguageCode = "ja",
+                            LanguageName = "Japanese"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            LanguageCode = "ko",
+                            LanguageName = "Korean"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            LanguageCode = "ar",
+                            LanguageName = "Arabic"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            LanguageCode = "hi",
+                            LanguageName = "Hindi"
+                        },
+                        new
+                        {
+                            ID = 10,
+                            LanguageCode = "ru",
+                            LanguageName = "Russian"
+                        },
+                        new
+                        {
+                            ID = 11,
+                            LanguageCode = "pt",
+                            LanguageName = "Portuguese"
+                        },
+                        new
+                        {
+                            ID = 12,
+                            LanguageCode = "it",
+                            LanguageName = "Italian"
+                        },
+                        new
+                        {
+                            ID = 13,
+                            LanguageCode = "nl",
+                            LanguageName = "Dutch"
+                        },
+                        new
+                        {
+                            ID = 14,
+                            LanguageCode = "sv",
+                            LanguageName = "Swedish"
+                        },
+                        new
+                        {
+                            ID = 15,
+                            LanguageCode = "no",
+                            LanguageName = "Norwegian"
+                        },
+                        new
+                        {
+                            ID = 16,
+                            LanguageCode = "da",
+                            LanguageName = "Danish"
+                        },
+                        new
+                        {
+                            ID = 17,
+                            LanguageCode = "fi",
+                            LanguageName = "Finnish"
+                        },
+                        new
+                        {
+                            ID = 18,
+                            LanguageCode = "pl",
+                            LanguageName = "Polish"
+                        },
+                        new
+                        {
+                            ID = 19,
+                            LanguageCode = "tr",
+                            LanguageName = "Turkish"
+                        },
+                        new
+                        {
+                            ID = 20,
+                            LanguageCode = "th",
+                            LanguageName = "Thai"
+                        },
+                        new
+                        {
+                            ID = 21,
+                            LanguageCode = "vi",
+                            LanguageName = "Vietnamese"
+                        },
+                        new
+                        {
+                            ID = 22,
+                            LanguageCode = "ms",
+                            LanguageName = "Malay"
+                        },
+                        new
+                        {
+                            ID = 23,
+                            LanguageCode = "id",
+                            LanguageName = "Indonesian"
+                        },
+                        new
+                        {
+                            ID = 24,
+                            LanguageCode = "el",
+                            LanguageName = "Greek"
+                        },
+                        new
+                        {
+                            ID = 25,
+                            LanguageCode = "he",
+                            LanguageName = "Hebrew"
+                        },
+                        new
+                        {
+                            ID = 26,
+                            LanguageCode = "ur",
+                            LanguageName = "Urdu"
+                        },
+                        new
+                        {
+                            ID = 27,
+                            LanguageCode = "bn",
+                            LanguageName = "Bengali"
+                        },
+                        new
+                        {
+                            ID = 28,
+                            LanguageCode = "ta",
+                            LanguageName = "Tamil"
+                        },
+                        new
+                        {
+                            ID = 29,
+                            LanguageCode = "te",
+                            LanguageName = "Telugu"
+                        },
+                        new
+                        {
+                            ID = 30,
+                            LanguageCode = "fa",
+                            LanguageName = "Persian"
+                        });
+                });
+
             modelBuilder.Entity("LanguageInstall.Data.Model.MainTable", b =>
                 {
                     b.Property<int>("ID")
@@ -666,6 +869,31 @@ namespace LanguageInstall.Data.Migrations
                             MainTableID = 50,
                             TranslatedText = "অতিরিক্ত তথ্য"
                         });
+                });
+
+            modelBuilder.Entity("LanguageInstall.Data.Model.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("LanguageInstall.Data.Model.Translation", b =>

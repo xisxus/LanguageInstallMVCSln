@@ -35,3 +35,16 @@
 ('Full Day'),
 ('Short Leave'),
 ('Other');
+
+
+
+
+  @if (User.Identity.IsAuthenticated)
+            // {
+            //     <p>Welcome, @User.Identity.Name!</p>
+            //     <a asp-controller="User" asp-action="Logout">Logout</a>
+            // }
+            // else
+            // {
+            //     <a asp-controller="User" asp-action="Login">Login</a>
+            // }

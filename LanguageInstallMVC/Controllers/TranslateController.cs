@@ -78,7 +78,22 @@ namespace LanguageInstallMVC.Controllers
 
         public IActionResult TranslateAll()
         {
-            return View();
+            
+            //var result = _dbContext.LanguageLists
+            //    .Where(lang => !_dbContext.Translation
+            //    .Any(trans => trans.LanguageCode == lang.LanguageCode))
+            //    .ToList();
+
+            var distinctTranslationCodes = _dbContext.Translation
+                .Select(trans => trans.LanguageCode)
+                .Distinct();
+
+            var result = _dbContext.LanguageLists
+                .Where(lang => !distinctTranslationCodes.Contains(lang.LanguageCode))
+                .ToList();
+
+
+            return View(result);
         }
 
 
