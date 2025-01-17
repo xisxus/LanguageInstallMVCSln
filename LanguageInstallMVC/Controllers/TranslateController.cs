@@ -9,6 +9,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.SignalR;
+using LanguageInstall.Service.SignalR;
 
 namespace LanguageInstallMVC.Controllers
 {
@@ -16,11 +18,13 @@ namespace LanguageInstallMVC.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly ITranslationService _translationService;
+        private readonly IHubContext<ProgressHub> _hubContext;
 
-        public TranslateController(AppDbContext dbContext, ITranslationService translationService)
+        public TranslateController(AppDbContext dbContext, ITranslationService translationService, IHubContext<ProgressHub> hubContext)
         {
             _dbContext = dbContext;
             _translationService = translationService;
+            _hubContext = hubContext;
         }
 
 
@@ -145,7 +149,10 @@ namespace LanguageInstallMVC.Controllers
                         _dbContext.Translation.Add(translation);
                         await _dbContext.SaveChangesAsync();
 
-                        ViewBag.progress = (o++ * 100) / total; // Calculate progress as a percentage
+                        // Send progress to the client
+                        int progress = (o++ * 100) / total;
+                        await _hubContext.Clients.All.SendAsync("UpdateProgress", progress, total);
+
                     }
                 }
                 catch (Exception ex)

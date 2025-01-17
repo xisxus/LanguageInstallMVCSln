@@ -1,5 +1,6 @@
 using LanguageInstall.Data.Data;
 using LanguageInstall.Service.Service;
+using LanguageInstall.Service.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 
-
+builder.Services.AddSignalR();
 builder.Services.AddHttpClient<TranslationService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,6 +40,8 @@ app.UseStaticFiles();
 //    context.Items["Language"] = language;
 //    await next();
 //});
+
+app.MapHub<ProgressHub>("/progressHub");
 
 
 app.Use(async (context, next) =>
