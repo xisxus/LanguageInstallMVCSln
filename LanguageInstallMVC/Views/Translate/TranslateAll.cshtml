@@ -16,6 +16,7 @@
                     <label for="languageCode">Target Language:</label>
                     <select class="form-control" id="languageCode" name="languageCode" required>
                         <option value="">-- Select a Language --</option>
+                    <option value="bn">bangla</option>
                          @foreach (var item in Model)
                         {
                             <option value="@item.LanguageCode">@item.LanguageName</option>

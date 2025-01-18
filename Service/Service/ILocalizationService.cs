@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageInstall.Data.Data;
+using LanguageInstall.Data.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -64,11 +65,20 @@ namespace LanguageInstall.Service.Service
                 .Include(m => m.Translations)
                 .FirstOrDefaultAsync(m => m.EnglishText == key);
 
-            if (mainEntry == null) return key; // Fallback to English text
+            if (mainEntry == null)
+            {
+                MainTable mainTable = new MainTable()
+                {
+                    EnglishText = key
+                };
+                _context.Add(mainTable);
+               await _context.SaveChangesAsync();
+                return key;
+            } 
 
             var translation = mainEntry.Translations.FirstOrDefault(t => t.LanguageCode == languageCode);
 
-           
+            
 
             return translation?.TranslatedText ?? key; // Fallback to English text
         }

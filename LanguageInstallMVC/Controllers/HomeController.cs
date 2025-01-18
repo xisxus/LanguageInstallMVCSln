@@ -51,6 +51,9 @@ namespace LanguageInstallMVC.Controllers
             ViewBag.SelectLeaveFormat = await _translationService.GetTranslationAsync("Select Leave Format", languageCode);
             ViewBag.SelectLeaveType = await _translationService.GetTranslationAsync("Select Leave Type", languageCode);
             ViewBag.ReasonPlaceholder = await _translationService.GetTranslationAsync("Enter Reason", languageCode);
+            ViewBag.Test = await _translationService.GetTranslationAsync("Test", languageCode);
+            ViewBag.Mobile = await _translationService.GetTranslationAsync("Mobile", languageCode);
+            ViewBag.Laptop = await _translationService.GetTranslationAsync("Laptop", languageCode);
 
             return View();
         }
