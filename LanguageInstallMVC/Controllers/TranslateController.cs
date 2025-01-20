@@ -88,12 +88,10 @@ namespace LanguageInstallMVC.Controllers
                 .Select(trans => trans.LanguageCode)
                 .Distinct();
 
-            var result = _dbContext.LanguageLists
-                .Where(lang => !distinctTranslationCodes.Contains(lang.LanguageCode))
-                .ToList();
+            //var result = _dbContext.LanguageLists Where(lang => !distinctTranslationCodes.Contains(lang.LanguageCode)).ToList();
 
 
-            return View(result);
+            return View(distinctTranslationCodes);
         }
 
 
