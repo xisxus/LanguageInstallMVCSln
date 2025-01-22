@@ -24,10 +24,12 @@ namespace LanguageInstall.Service.Service
     public class LocalizationService : ILocalizationService
     {
         private readonly AppDbContext _context;
+        private readonly ITranslateOperation _translateOperation;
 
-        public LocalizationService(AppDbContext context)
+        public LocalizationService(AppDbContext context, ITranslateOperation translateOperation)
         {
             _context = context;
+            _translateOperation = translateOperation;
         }
 
         public async Task<List<string>> GetLang()
@@ -111,69 +113,54 @@ namespace LanguageInstall.Service.Service
             return true;
         }
 
-        private async Task TranslateOperratipnm(string key, IQueryable<string> distinctTranslationCodes , int id)
+        private async Task TranslateOperratipnm(string key, IQueryable<string> distinctTranslationCodes, int id)
         {
-            
-            int sleepTime = 1000;
-         
+            var res = await _translateOperation.OperationMultiLanguage(key, distinctTranslationCodes, id);
 
-           
-
-            var options = new ChromeOptions();
-            options.AddArgument("--headless");
-            options.AddArgument("--disable-gpu");
-            options.AddArgument("--no-sandbox");
-
-            using (var driver = new ChromeDriver(options))
+            while (true)
             {
-                try
+                var invalidTranslations = _context.Translation
+                    .Where(t => res.Contains(t.ID) && (string.IsNullOrEmpty(t.TranslatedText) || t.TranslatedText.Contains("%??") || t.TranslatedText.Contains("??%") || t.TranslatedText.Contains("%??%") ))
+                    .Include(t => t.MainTable)
+                    .ToList();
+
+                if (!invalidTranslations.Any())
+                    break;
+
+                foreach (var translation in invalidTranslations)
                 {
-                    foreach (var item in distinctTranslationCodes)
+                    try
                     {
-                        string url = $"https://translate.google.com/?hl=en&sl=en&tl={item}&op=translate";
-                        driver.Navigate().GoToUrl(url);
-
-                        Thread.Sleep(sleepTime);
-
-                        var sourceTextBox = driver.FindElement(By.XPath("//textarea[@aria-label='Source text']"));
-
-                        sourceTextBox.Clear();
-                        sourceTextBox.SendKeys(key);
-                        Thread.Sleep(2000);
-
-                        var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                        var translationContainer = wait.Until(d => d.FindElement(By.ClassName("usGWQd")));
-                        var result = translationContainer.Text;
-
-                        var translation = new Translation
-                        {
-                            MainTableID = id,
-                            LanguageCode = item,
-                            TranslatedText = result,
-
-                        };
-
-                        _context.Translation.Add(translation);
-                        await _context.SaveChangesAsync();
-
+                        SaveNotification(translation);
+                        await _translateOperation.OperationSINGLELanguageUpdate(
+                            translation.MainTable.EnglishText,
+                            translation.LanguageCode,
+                            translation.MainTableID,
+                            translation.ID
+                        );
                     }
-                    
-
-                   
-
-                   
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Error during translation: {ex.Message}");
-                }
-                finally
-                {
-                    driver.Quit();
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error translating: {ex.Message}");
+                    }
                 }
             }
+        }
 
-           
+        private void SaveNotification(Translation translation)
+        {
+            Notification notification = new Notification()
+            {
+                RecordTime = DateTime.Now,
+                MainTableId = translation.MainTableID,
+                TranslateTableId = translation.ID,
+                EnglishText = translation.MainTable.EnglishText,
+                LangCode = translation.LanguageCode,
+                TranslateText = translation.TranslatedText,
+                Remark = "unChecked"
+            };
+            _context.Add(notification);
+            _context.SaveChangesAsync();
         }
     }
 

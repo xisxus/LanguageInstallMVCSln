@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITranslateOperation, TranslateOperation>();
 
 // Add SignalR
 builder.Services.AddSignalR();
